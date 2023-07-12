@@ -12,7 +12,7 @@ final class CustomTabBarController: UITabBarController {
     private enum Constants {
         static let dictionary = UIImage(named: "Dictionary")
         static let training = UIImage(named: "Training")
-        static let settings = UIImage(systemName: "gearshape")
+        static let settings = UIImage(named: "SearchIcon")
     }
     
     
@@ -59,6 +59,7 @@ final class CustomTabBarController: UITabBarController {
         
         tabBar.layer.insertSublayer(borderLayer, at: 0)
         tabBar.layer.insertSublayer(roundedLayer, at: 0)
+//        tabBar.backgroundColor = .clear
         
         
         tabBar.itemWidth = width / 5
@@ -73,13 +74,19 @@ final class CustomTabBarController: UITabBarController {
     }
     
     func createDictionaryNavigationController() -> UIViewController {
+        let view = MainDictionaryViewController()
+        let presenter = MainDictionaryPresenter(view: view)
+        view.presenter = presenter
+        
         let vc = configureViewController(
-            UIViewController(),
+            view,
             title: "Dictionary",
             image: Constants.dictionary ?? .add
         )
-        vc.view.backgroundColor = .yellow
-        return vc
+        
+        let dictionaryNavigationController = UINavigationController(rootViewController: vc)
+//        dictionaryNavigationController.setNavigationBarHidden(true, animated: false)
+        return dictionaryNavigationController
     }
     
     func createTrainingNavigationController() -> UIViewController {
@@ -102,7 +109,7 @@ final class CustomTabBarController: UITabBarController {
         return vc
     }
     
-    // MARK:
+    // MARK: Generates view controller for tab bar
     func configureViewController(
         _ viewController: UIViewController,
         title: String,
