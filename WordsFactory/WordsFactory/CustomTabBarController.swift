@@ -100,12 +100,16 @@ final class CustomTabBarController: UITabBarController {
     }
     
     func createSettingsNavigationController() -> UIViewController {
+        
+        let mainSearchViewController = MainSearchViewController()
+        
         let vc = configureViewController(
-            UIViewController(),
-            title: "Settings",
+            mainSearchViewController,
+            title: "Search",
             image: Constants.settings ?? .add
         )
-        vc.view.backgroundColor = .red
+        
+        vc.view.backgroundColor = .white
         return vc
     }
     

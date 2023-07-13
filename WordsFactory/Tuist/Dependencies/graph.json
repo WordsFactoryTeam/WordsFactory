@@ -1,0 +1,413 @@
+{
+  "externalProjects" : [
+    "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
+    {
+      "sourceRootPath" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
+      "options" : {
+        "automaticSchemesOptions" : {
+          "disabled" : {
+
+          }
+        },
+        "disableShowEnvironmentVarsInScriptPhases" : false,
+        "disableBundleAccessors" : false,
+        "disableSynthesizedResourceAccessors" : true,
+        "textSettings" : {
+
+        }
+      },
+      "additionalFiles" : [
+
+      ],
+      "targets" : [
+        {
+          "scripts" : [
+
+          ],
+          "deploymentTarget" : {
+            "iOS" : {
+              "_0" : "11.0",
+              "supportsMacDesignedForIOS" : true,
+              "_1" : 3
+            }
+          },
+          "prune" : false,
+          "bundleId" : "Alamofire",
+          "copyFiles" : [
+
+          ],
+          "launchArguments" : [
+
+          ],
+          "dependencies" : [
+            {
+              "sdk" : {
+                "name" : "CFNetwork.framework",
+                "status" : "required"
+              }
+            }
+          ],
+          "additionalFiles" : [
+
+          ],
+          "name" : "Alamofire",
+          "settings" : {
+            "base" : {
+              "SWIFT_ACTIVE_COMPILATION_CONDITIONS" : {
+                "array" : {
+                  "_0" : [
+                    "$(inherited)",
+                    "SWIFT_PACKAGE"
+                  ]
+                }
+              },
+              "CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER" : {
+                "string" : {
+                  "_0" : "NO"
+                }
+              },
+              "GCC_PREPROCESSOR_DEFINITIONS" : {
+                "array" : {
+                  "_0" : [
+                    "$(inherited)",
+                    "SWIFT_PACKAGE=1"
+                  ]
+                }
+              },
+              "FRAMEWORK_SEARCH_PATHS" : {
+                "array" : {
+                  "_0" : [
+                    "$(inherited)",
+                    "$(PLATFORM_DIR)\/Developer\/Library\/Frameworks"
+                  ]
+                }
+              },
+              "GCC_WARN_INHIBIT_ALL_WARNINGS" : {
+                "string" : {
+                  "_0" : "YES"
+                }
+              },
+              "GCC_NO_COMMON_BLOCKS" : {
+                "string" : {
+                  "_0" : "NO"
+                }
+              },
+              "USE_HEADERMAP" : {
+                "string" : {
+                  "_0" : "NO"
+                }
+              },
+              "ALWAYS_SEARCH_USER_PATHS" : {
+                "string" : {
+                  "_0" : "YES"
+                }
+              },
+              "SWIFT_SUPPRESS_WARNINGS" : {
+                "string" : {
+                  "_0" : "YES"
+                }
+              },
+              "CLANG_ENABLE_OBJC_WEAK" : {
+                "string" : {
+                  "_0" : "NO"
+                }
+              },
+              "ENABLE_STRICT_OBJC_MSGSEND" : {
+                "string" : {
+                  "_0" : "NO"
+                }
+              }
+            },
+            "configurations" : [
+              {
+                "name" : "Debug",
+                "variant" : "debug"
+              },
+              {
+                "settings" : {
+
+                }
+              },
+              {
+                "name" : "Release",
+                "variant" : "release"
+              },
+              {
+                "settings" : {
+
+                }
+              }
+            ],
+            "defaultSettings" : {
+              "recommended" : {
+                "excluding" : [
+
+                ]
+              }
+            }
+          },
+          "coreDataModels" : [
+
+          ],
+          "platform" : "ios",
+          "environment" : {
+
+          },
+          "sources" : [
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Request.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Protected.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AFError.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/CachedResponseHandler.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLSessionConfiguration+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RedirectHandler.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/SessionDelegate.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ParameterEncoder.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Concurrency.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AuthenticationInterceptor.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ResponseSerialization.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/StringEncoding+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/OperationQueue+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ServerTrustEvaluation.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Validation.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/DispatchQueue+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Notifications.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLEncodedFormEncoder.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/MultipartFormData.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ParameterEncoding.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AlamofireExtended.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/NetworkReachabilityManager.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestInterceptor.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/HTTPMethod.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestCompression.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Response.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/EventMonitor.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Session.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLConvertible+URLRequestConvertible.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Result+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RetryPolicy.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/HTTPHeaders.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLRequest+Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestTaskMap.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Combine.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Alamofire.swift"
+            },
+            {
+              "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/MultipartUpload.swift"
+            }
+          ],
+          "resources" : [
+
+          ],
+          "product" : "staticFramework",
+          "buildRules" : [
+
+          ],
+          "playgrounds" : [
+
+          ],
+          "productName" : "Alamofire",
+          "filesGroup" : {
+            "group" : {
+              "name" : "Project"
+            }
+          },
+          "rawScriptBuildPhases" : [
+
+          ],
+          "infoPlist" : {
+            "extendingDefault" : {
+              "with" : {
+
+              }
+            }
+          }
+        }
+      ],
+      "settings" : {
+        "base" : {
+          "SWIFT_VERSION" : {
+            "string" : {
+              "_0" : "5.0.0"
+            }
+          }
+        },
+        "configurations" : [
+          {
+            "name" : "Debug",
+            "variant" : "debug"
+          },
+          {
+            "settings" : {
+
+            }
+          },
+          {
+            "name" : "Release",
+            "variant" : "release"
+          },
+          {
+            "settings" : {
+
+            }
+          }
+        ],
+        "defaultSettings" : {
+          "recommended" : {
+            "excluding" : [
+
+            ]
+          }
+        }
+      },
+      "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
+      "isExternal" : true,
+      "filesGroup" : {
+        "group" : {
+          "name" : "Project"
+        }
+      },
+      "packages" : [
+
+      ],
+      "xcodeProjPath" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Alamofire.xcodeproj",
+      "resourceSynthesizers" : [
+        {
+          "template" : {
+            "defaultTemplate" : {
+              "_0" : "Strings"
+            }
+          },
+          "parser" : "strings",
+          "extensions" : [
+            "stringsdict",
+            "strings"
+          ]
+        },
+        {
+          "template" : {
+            "defaultTemplate" : {
+              "_0" : "Assets"
+            }
+          },
+          "parser" : "assets",
+          "extensions" : [
+            "xcassets"
+          ]
+        },
+        {
+          "template" : {
+            "defaultTemplate" : {
+              "_0" : "Plists"
+            }
+          },
+          "parser" : "plists",
+          "extensions" : [
+            "plist"
+          ]
+        },
+        {
+          "template" : {
+            "defaultTemplate" : {
+              "_0" : "Fonts"
+            }
+          },
+          "parser" : "fonts",
+          "extensions" : [
+            "otf",
+            "ttc",
+            "ttf"
+          ]
+        }
+      ],
+      "lastUpgradeCheck" : "99.9.9",
+      "schemes" : [
+
+      ],
+      "name" : "Alamofire"
+    }
+  ],
+  "externalDependencies" : [
+    "ios",
+    {
+      "Alamofire" : [
+        {
+          "project" : {
+            "target" : "Alamofire",
+            "path" : "\/Users\/nad\/git_reps\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire"
+          }
+        }
+      ]
+    }
+  ]
+}
