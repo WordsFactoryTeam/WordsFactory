@@ -29,7 +29,9 @@ let target = Target(name: "WordsFactory",
                     sources: ["WordsFactory/**/*.swift"],
                     resources: ["WordsFactory/LaunchScreen.storyboard",
                                 "WordsFactory/Assets.xcassets/"],
-                    dependencies: []
+                    dependencies: [
+                        .external(name: "Alamofire"),
+                    ]
 )
 
 

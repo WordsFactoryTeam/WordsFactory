@@ -8,13 +8,13 @@
 import Foundation
 import Alamofire
 
-class ApiManagerDictionary{
+class ApiManagerDictionary {
     
-    enum possibleTranslateLanguages:String{
+    enum possibleTranslateLanguages:String {
         case ruen = "ru-en"
         case enru = "en-ru"
         
-        public func getSpeakLanguage()->String{
+        public func getSpeakLanguage() -> String {
             switch self {
             case .ruen:
                 return "ru-Ru"
@@ -29,7 +29,7 @@ class ApiManagerDictionary{
     let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
         
     
-    public func getWord(word:String, completion: @escaping (Word?)->Void){
+    public func getWord(word: String, completion: @escaping (Word?) -> Void){
         
         let language = self.determineLanguage(word: word)
         
@@ -38,8 +38,8 @@ class ApiManagerDictionary{
         let url = URL(string: fullUrlString)
         
         print(fullUrlString)
-        
-        AF.request(url!, method: .get).response { response in
+        guard let url else { return }
+        AF.request(url, method: .get).response { response in
             
             switch response.result {
             case .success(_):
@@ -54,7 +54,7 @@ class ApiManagerDictionary{
                         print(error)
                         completion(nil)
                     }
-                }else{
+                } else {
                     completion(nil)
                 }
             case .failure(_):
@@ -64,25 +64,25 @@ class ApiManagerDictionary{
         
     }
     
-    private func determineLanguage(word:String)->possibleTranslateLanguages{
+    private func determineLanguage(word: String) -> possibleTranslateLanguages {
         let englishLetters = "qwertyuiopasdfghjklzxcvbnm"
         
         if englishLetters.contains(word.lowercased().first ?? "n"){
             return .enru
-        }else{
+        } else {
             return .ruen
         }
     }
     
-    private func parseJson(_ json:[String:Any], lang:possibleTranslateLanguages)->Word?{
+    private func parseJson(_ json: [String: Any], lang: possibleTranslateLanguages) -> Word? {
         
         let def = json["def"] as! NSArray
-        if def.count == 0{
+        
+        if def.count == 0 {
             return nil
         }
+        
         let word = def[0] as! [String:Any]
-        
-        
         
         let wordText = word["text"] as! String
         let wordTs = word["ts"] as? String
@@ -91,7 +91,7 @@ class ApiManagerDictionary{
         let wordEntity = Word(word: wordText, language: lang.getSpeakLanguage(), PartOfSpeech: wordPos, transcription: wordTs)
         
         let tr = word["tr"] as? NSArray
-                
+        
         for i in tr ?? []{
             let element = i as! [String:Any]
             

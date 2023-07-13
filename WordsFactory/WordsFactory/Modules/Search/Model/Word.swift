@@ -8,16 +8,16 @@
 import Foundation
 
 class Word{
-
-    let word:String
-    let language:String?
-    let PartOfSpeech:String?
-    let transcription:String?
     
-    var meaning:[Word] = []
+    let word: String
+    let language: String?
+    let PartOfSpeech: String?
+    let transcription: String?
+    
+    var meaning: [Word] = []
     
     
-    init(word: String,language:String?, PartOfSpeech: String?, transcription: String?) {
+    init(word: String, language: String?, PartOfSpeech: String?, transcription: String?) {
         self.word = word
         self.language = language
         self.PartOfSpeech = PartOfSpeech
@@ -25,12 +25,12 @@ class Word{
     }
     
     
-    public func printWord(){
+    public func printWord() {
         print(word)
         print(PartOfSpeech)
         print(transcription)
         
-        for i in meaning{
+        for i in meaning {
             i.printWord()
         }
     }
