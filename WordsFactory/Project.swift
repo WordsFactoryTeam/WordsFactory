@@ -3,7 +3,7 @@ import ProjectDescription
 let infoPlist: [String: InfoPlist.Value] = [
     "CFBundleShortVersionString": "1.0",
     "CFBundleVersion": "1",
-//    "UIMainStoryboardFile": "",
+    //    "UIMainStoryboardFile": "",
     "UILaunchStoryboardName": "LaunchScreen",
     "UIApplicationSceneManifest": .dictionary([
         "UIApplicationSupportsMultipleScenes": .boolean(false),
@@ -17,7 +17,8 @@ let infoPlist: [String: InfoPlist.Value] = [
                 )
                 ]
             )])
-    ])
+    ]),
+    "UIAppFonts": .array(["Rubik-Italic.ttf", "Rubik.ttf"])
 ]
 
 let target = Target(name: "WordsFactory",
@@ -28,7 +29,9 @@ let target = Target(name: "WordsFactory",
                     infoPlist: .extendingDefault(with: infoPlist),
                     sources: ["WordsFactory/**/*.swift"],
                     resources: ["WordsFactory/LaunchScreen.storyboard",
-                                "WordsFactory/Assets.xcassets/"],
+                                "WordsFactory/Assets.xcassets/",
+                                "WordsFactory/Fonts/Rubik-Italic.ttf",
+                                "WordsFactory/Fonts/Rubik.ttf"],
                     dependencies: [
                         .external(name: "Alamofire"),
                     ],
