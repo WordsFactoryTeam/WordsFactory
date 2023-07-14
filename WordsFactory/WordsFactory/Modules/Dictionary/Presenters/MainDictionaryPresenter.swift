@@ -19,33 +19,11 @@ class MainDictionaryPresenter: MainDictionaryViewPresenter {
     
     private var items: [Word] = []
     
-    // MARK: Convert model form Core Data to UI
-    func translateCoreToUI(coreWord: CoreWord) -> Word {
-        var word: Word = Word(word: coreWord.word ?? "None",
-                              language: coreWord.language,
-                              PartOfSpeech: coreWord.partOfSpeech,
-                              transcription: coreWord.transcription
-        )
-        
-        if let meanings = coreWord.meanings?.allObjects as? [CoreMeaning] {
-            word.meaning = meanings.map { coreMeaning in
-                Word(word: coreMeaning.word ?? "None",
-                     language: coreMeaning.language,
-                     PartOfSpeech: coreMeaning.partOfSpeech,
-                     transcription: coreMeaning.transcription
-                )
-            }.sorted(by: { $0.word < $1.word })
-        }
-        
-        
-        return word
-    }
-    
     // MARK: - Private methods
     func retriveItems() {
         if let coreWords = CoreWordService.fetchCoreWords() {
             items = coreWords.map({ coreWord in
-                translateCoreToUI(coreWord: coreWord)
+                Converter.translateCoreToUI(coreWord: coreWord)
             })
         }
         view?.onItemsRetrieval(items: items)
@@ -67,19 +45,10 @@ class MainDictionaryPresenter: MainDictionaryViewPresenter {
     }
     
     func searchForWord(literalWord: String) {
-        if literalWord.isEmpty {
-            if let coreWords = CoreWordService.fetchCoreWords() {
-                items = coreWords.map({ coreWord in
-                    translateCoreToUI(coreWord: coreWord)
-                })
-            }
-        } else {
-            if let coreWords = CoreWordService.filterWords(literalWord: literalWord) {
-                items = coreWords.map({ coreWord in
-                    translateCoreToUI(coreWord: coreWord)
-                })
-            }
-        }
+        let coreWords = literalWord.isEmpty ?
+            CoreWordService.fetchCoreWords():
+            CoreWordService.filterWords(literalWord: literalWord)
+        items = Converter.translateWordsCoresToUIs(coreWords: coreWords) ?? []
         view?.onItemSearch(items: items)
     }
 }
