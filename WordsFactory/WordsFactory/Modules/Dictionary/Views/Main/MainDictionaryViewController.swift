@@ -8,12 +8,12 @@
 import UIKit
 
 protocol MainDictionaryView: AnyObject {
-    func onItemsRetrieval(items: [UIWord])
+    func onItemsRetrieval(items: [Word])
     func onItemDelete(index: Int)
 }
 
 final class MainDictionaryViewController: UIViewController {
-    private var words = [UIWord]()
+    private var words = [Word]()
     var presenter: MainDictionaryViewPresenter!
     
     private let searchController: UISearchController = {
@@ -56,6 +56,10 @@ final class MainDictionaryViewController: UIViewController {
         presenter.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewDidLoad()
+    }
+    
     func staticConstraints() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         
@@ -79,7 +83,7 @@ extension MainDictionaryViewController: MainDictionaryView {
         tableOfWords.deleteRows(at: [index], with: .automatic)
     }
     
-    func onItemsRetrieval(items: [UIWord]) {
+    func onItemsRetrieval(items: [Word]) {
         words = items
         tableOfWords.reloadData()
     }
@@ -132,7 +136,7 @@ extension MainDictionaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
-            self?.presenter.deleteWord(for: indexPath.row)
+            self?.presenter.deleteWord(at: indexPath.row, for: self!.words[indexPath.row])
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")

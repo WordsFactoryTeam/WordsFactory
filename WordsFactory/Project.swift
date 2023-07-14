@@ -31,7 +31,8 @@ let target = Target(name: "WordsFactory",
                                 "WordsFactory/Assets.xcassets/"],
                     dependencies: [
                         .external(name: "Alamofire"),
-                    ]
+                    ],
+                    coreDataModels: [.init("WordsFactory/Model.xcdatamodeld")]
 )
 
 

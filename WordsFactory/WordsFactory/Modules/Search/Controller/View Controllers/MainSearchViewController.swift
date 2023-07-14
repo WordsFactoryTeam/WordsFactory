@@ -14,7 +14,11 @@ class MainSearchViewController: UIViewController {
     
     let apiManagerDictionary = ApiManagerDictionary()
     
-    var currentWord:Word?
+    var currentWord:Word? {
+        didSet {
+            CoreWordService.createCoreWord(word: currentWord ?? nil)
+        }
+    }
     
     
     // MARK: - SEARCH OBJECTS

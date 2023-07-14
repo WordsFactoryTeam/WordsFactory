@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Word{
+class Word {
     
     let word: String
     let language: String?
