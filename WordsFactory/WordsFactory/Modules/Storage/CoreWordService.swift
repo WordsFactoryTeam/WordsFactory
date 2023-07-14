@@ -13,12 +13,37 @@ import CoreData
 class CoreWordService {
     static func fetchCoreWords() -> [CoreWord]? {
         let fetchRequest: NSFetchRequest<CoreWord> = CoreWord.fetchRequest()
-
+        fetchRequest.sortDescriptors = [
+            .init(key: "word", ascending: true)
+        ]
+    
         do {
             let coreWords = try PersistentContainer.shared.viewContext.fetch(fetchRequest)
             return coreWords
         } catch {
             print("Error fetching Core Words: \(error)")
+            return nil
+        }
+    }
+    
+    static func filterWords(literalWord: String) -> [CoreWord]? {
+        let fetchRequest: NSFetchRequest<CoreWord> = CoreWord.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            .init(key: "word", ascending: true)
+        ]
+        let coreWordPredicate = NSPredicate(format: "word CONTAINS[cd] %@", literalWord)
+        let coreMeaningPredicate = NSPredicate(format: "ANY meanings.word CONTAINS[cd] %@", literalWord)
+        
+        let compountPredicate = NSCompoundPredicate(
+            orPredicateWithSubpredicates: [coreWordPredicate, coreMeaningPredicate]
+        )
+        fetchRequest.predicate = compountPredicate
+        
+        do {
+            let coreWordsThatMachesPredicate = try PersistentContainer.shared.viewContext.fetch(fetchRequest)
+            return coreWordsThatMachesPredicate
+        } catch {
+            print("Error filterring words")
             return nil
         }
     }
@@ -59,7 +84,7 @@ class CoreWordService {
                 coreWords.forEach { coreWord in
                     backGroudContext.delete(coreWord)
                 }
-                try PersistentContainer.shared.saveContext(backgroundContext: backGroudContext)
+                PersistentContainer.shared.saveContext(backgroundContext: backGroudContext)
             } catch {
                 print("Error fetching Core Words: \(error)")
                 return

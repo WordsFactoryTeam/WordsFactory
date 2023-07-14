@@ -10,6 +10,7 @@ import UIKit
 protocol MainDictionaryView: AnyObject {
     func onItemsRetrieval(items: [Word])
     func onItemDelete(index: Int)
+    func onItemSearch(items: [Word])
 }
 
 final class MainDictionaryViewController: UIViewController {
@@ -87,6 +88,11 @@ extension MainDictionaryViewController: MainDictionaryView {
         words = items
         tableOfWords.reloadData()
     }
+    
+    func onItemSearch(items: [Word]) {
+        words = items
+        tableOfWords.reloadData()
+    }
 }
 
 
@@ -110,10 +116,8 @@ extension MainDictionaryViewController: UITableViewDataSource {
                 image: UIImage(named: "NoResultsImage") ?? UIImage(systemName: "book")!,
                 title: "Someone stole your words!"
             )
-            searchController.searchBar.isHidden = true
         } else {
             tableView.removeEmptyDataView()
-            searchController.searchBar.isHidden = false
         }
         
         return words.count
@@ -154,6 +158,7 @@ extension MainDictionaryViewController: UISearchControllerDelegate {
 extension MainDictionaryViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        print(text)
+        
+        presenter?.searchForWord(literalWord: text)
     }
 }

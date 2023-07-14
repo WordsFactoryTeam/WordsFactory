@@ -75,8 +75,8 @@ final class CustomTabBarController: UITabBarController {
     
     func createDictionaryNavigationController() -> UIViewController {
         let view = MainDictionaryViewController()
-        let presenter = MainDictionaryPresenter()
-        presenter.view = view
+        let presenter = MainDictionaryPresenter(view: view)
+        
         view.presenter = presenter
         
         let vc = configureViewController(
