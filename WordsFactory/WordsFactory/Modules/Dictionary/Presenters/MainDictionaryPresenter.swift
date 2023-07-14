@@ -21,11 +21,8 @@ class MainDictionaryPresenter: MainDictionaryViewPresenter {
     
     // MARK: - Private methods
     func retriveItems() {
-        if let coreWords = CoreWordService.fetchCoreWords() {
-            items = coreWords.map({ coreWord in
-                Converter.translateCoreToUI(coreWord: coreWord)
-            })
-        }
+        let coreWords = CoreWordService.fetchCoreWords()
+        items = Converter.translateWordsCoresToUIs(coreWords: coreWords) ?? []
         view?.onItemsRetrieval(items: items)
     }
     
