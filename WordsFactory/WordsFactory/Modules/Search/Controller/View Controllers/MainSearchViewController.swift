@@ -16,12 +16,13 @@ class MainSearchViewController: UIViewController {
     
     var currentWord: Word? {
         didSet {
-            CoreWordService.createCoreWord(word: currentWord)
+            if !CoreWordService.wordIsAlreadySaved(word: currentWord) {
+                CoreWordService.createCoreWord(word: currentWord)
+            }
         }
     }
     
     func setInfo(word: Word?) {
-        
         searchTextField.text = word?.word
         self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", word?.transcription ?? "", .systemPink)
         self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", word?.PartOfSpeech ?? "", .black)

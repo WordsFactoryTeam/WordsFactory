@@ -91,4 +91,19 @@ class CoreWordService {
             }
         }
     }
+    
+    static func wordIsAlreadySaved(word: Word?) -> Bool {
+        guard let word else { return false }
+        
+        let fetchRequest: NSFetchRequest<CoreWord> = CoreWord.fetchRequest()
+        fetchRequest.predicate = .init(format: "word == %@", word.word)
+        
+        do {
+            let coreWordsThatMachesPredicate = try PersistentContainer.shared.viewContext.fetch(fetchRequest)
+            return !coreWordsThatMachesPredicate.isEmpty
+        } catch {
+            print("Error filterring words")
+            return false
+        }
+    }
 }
