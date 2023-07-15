@@ -8,12 +8,13 @@
 import UIKit
 
 protocol MainDictionaryView: AnyObject {
-    func onItemsRetrieval(items: [UIWord])
+    func onItemsRetrieval(items: [Word])
     func onItemDelete(index: Int)
+    func onItemSearch(items: [Word])
 }
 
 final class MainDictionaryViewController: UIViewController {
-    private var words = [UIWord]()
+    private var words = [Word]()
     var presenter: MainDictionaryViewPresenter!
     
     private let searchController: UISearchController = {
@@ -56,6 +57,10 @@ final class MainDictionaryViewController: UIViewController {
         presenter.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewDidLoad()
+    }
+    
     func staticConstraints() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         
@@ -79,7 +84,12 @@ extension MainDictionaryViewController: MainDictionaryView {
         tableOfWords.deleteRows(at: [index], with: .automatic)
     }
     
-    func onItemsRetrieval(items: [UIWord]) {
+    func onItemsRetrieval(items: [Word]) {
+        words = items
+        tableOfWords.reloadData()
+    }
+    
+    func onItemSearch(items: [Word]) {
         words = items
         tableOfWords.reloadData()
     }
@@ -91,7 +101,10 @@ extension MainDictionaryViewController: UITableViewDelegate {
         _ tableView: UITableView,
         shouldHighlightRowAt indexPath: IndexPath
     ) -> Bool {
-        false
+        (tabBarController?.viewControllers?.last
+         as? MainSearchViewController)?.setInfo(word: words[indexPath.row])
+        tabBarController?.selectedIndex = 2
+        return false
     }
     
 }
@@ -106,10 +119,8 @@ extension MainDictionaryViewController: UITableViewDataSource {
                 image: UIImage(named: "NoResultsImage") ?? UIImage(systemName: "book")!,
                 title: "Someone stole your words!"
             )
-            searchController.searchBar.isHidden = true
         } else {
             tableView.removeEmptyDataView()
-            searchController.searchBar.isHidden = false
         }
         
         return words.count
@@ -132,7 +143,7 @@ extension MainDictionaryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
-            self?.presenter.deleteWord(for: indexPath.row)
+            self?.presenter.deleteWord(at: indexPath.row, for: self!.words[indexPath.row])
             completionHandler(true)
         }
         deleteAction.image = UIImage(systemName: "trash")
@@ -150,6 +161,7 @@ extension MainDictionaryViewController: UISearchControllerDelegate {
 extension MainDictionaryViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        print(text)
+        
+        presenter?.searchForWord(literalWord: text)
     }
 }

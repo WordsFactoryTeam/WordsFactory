@@ -38,9 +38,11 @@ final class DynamicTableCell: UITableViewCell {
         self.detailsLabel.text = details
     }
     
-    func setInfo(info: UIWord) {
-        self.title.text = info.wordOriginal
-        self.detailsLabel.text = info.wordTranslations.joined(separator: ", ")
+    func setInfo(info: Word) {
+        self.title.text = info.word
+        self.detailsLabel.text = info.meaning.map{
+            $0.word
+        }.joined(separator: ", ")
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
