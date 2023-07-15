@@ -16,9 +16,7 @@ class MainSearchViewController: UIViewController {
     
     var currentWord: Word? {
         didSet {
-            if !CoreWordService.wordIsAlreadySaved(word: currentWord) {
-                CoreWordService.createCoreWord(word: currentWord)
-            }
+            CoreWordService.createCoreWord(word: currentWord)
         }
     }
     

@@ -50,7 +50,18 @@ class CoreWordService {
 
     static func createCoreWord(word: Word?) {
         guard let word else { return }
+        let fetchRequest: NSFetchRequest<CoreWord> = CoreWord.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word == %@", word.word)
+        
         PersistentContainer.shared.performBackgroundTask { backgroundContext in
+            do {
+                let coreWords = try backgroundContext.fetch(fetchRequest)
+                if !coreWords.isEmpty {
+                    return
+                }
+            } catch { }
+            
+                
             let coreWord = CoreWord(context: backgroundContext)
             coreWord.word = word.word
             coreWord.language = word.language
