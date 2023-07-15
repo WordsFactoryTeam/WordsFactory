@@ -101,9 +101,9 @@ extension MainDictionaryViewController: UITableViewDelegate {
         _ tableView: UITableView,
         shouldHighlightRowAt indexPath: IndexPath
     ) -> Bool {
-//        let vc = MainSearchViewController()
-//        vc.currentWord = words[indexPath.row]
-//        navigationController?.present(vc, animated: true)
+        (tabBarController?.viewControllers?.last
+         as? MainSearchViewController)?.setInfo(word: words[indexPath.row])
+        tabBarController?.selectedIndex = 2
         return false
     }
     

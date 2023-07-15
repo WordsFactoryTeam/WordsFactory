@@ -24,7 +24,8 @@ class Converter {
                      PartOfSpeech: coreMeaning.partOfSpeech,
                      transcription: coreMeaning.transcription
                 )
-            }.sorted(by: { $0.word < $1.word })
+            }.sorted(by: { $0.word.lowercased() < $1.word.lowercased() })
+            
         }
         return word
     }
