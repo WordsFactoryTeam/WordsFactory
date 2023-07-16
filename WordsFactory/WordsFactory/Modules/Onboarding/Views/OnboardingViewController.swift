@@ -73,7 +73,6 @@ class OnboardingViewController: UIViewController {
     
     @objc func nextBtnClicked() {
         if currentPage == slides.count - 1 {
-//            UserDefaults.standard.set(false, forKey: "isNewUser")
             onExit?()
             return
         }

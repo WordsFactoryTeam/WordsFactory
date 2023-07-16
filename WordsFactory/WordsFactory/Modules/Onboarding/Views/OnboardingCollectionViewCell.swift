@@ -63,8 +63,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
         constraints.append(contentsOf: [
             slideImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             slideImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
-//            slideImageView.heightAnchor.constraint(equalToConstant: 229),
-//            slideImageView.widthAnchor.constraint(equalToConstant: 333),
             slideImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             slideImageView.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
