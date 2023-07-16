@@ -32,7 +32,8 @@ let infoPlist: [String: InfoPlist.Value] = [
                           "Rubik-Regular.ttf",
                           "Rubik-SemiBold.ttf",
                           "Rubik-SemiBoldItalic.ttf"
-                         ])
+                         ]),
+    "UISupportedInterfaceOrientations": .array(["UIInterfaceOrientationPortrait"])
 ]
 
 let target = Target(name: "WordsFactory",
