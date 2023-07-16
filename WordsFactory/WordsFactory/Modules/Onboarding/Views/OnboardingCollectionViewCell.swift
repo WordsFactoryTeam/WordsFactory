@@ -14,6 +14,7 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     private let slideImageView: UIImageView = {
         let slideImageView = UIImageView()
         slideImageView.translatesAutoresizingMaskIntoConstraints = false
+        slideImageView.contentMode = .scaleAspectFit
         
         return slideImageView
     }()
