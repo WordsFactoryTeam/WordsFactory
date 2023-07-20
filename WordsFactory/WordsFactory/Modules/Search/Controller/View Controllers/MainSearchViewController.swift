@@ -16,16 +16,28 @@ class MainSearchViewController: UIViewController {
     
     var currentWord: Word? {
         didSet {
-            CoreWordService.createCoreWord(word: currentWord)
+            if currentWord != nil{
+                self.emptyLabel.layer.opacity = 0
+                self.partOfSpeechLabel.layer.opacity = 1
+                self.speakButton.layer.opacity = 1
+                self.addToDictionaryButton.layer.opacity = 1
+            }else{
+                self.emptyLabel.layer.opacity = 1
+                self.partOfSpeechLabel.layer.opacity = 0
+                self.speakButton.layer.opacity = 0
+                self.addToDictionaryButton.layer.opacity = 0
+            }
         }
     }
     
     func setInfo(word: Word?) {
-        searchTextField.text = word?.word
-        self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", word?.transcription ?? "", .systemPink)
-        self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", word?.PartOfSpeech ?? "", .black)
-        
         self.currentWord = word
+        
+        self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", currentWord?.transcription ?? "", .systemPink)
+        
+        self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", currentWord?.PartOfSpeech ?? "", .black)
+        
+        
         self.meaningTableView.reloadData()
     }
     
@@ -86,6 +98,7 @@ class MainSearchViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "speak"), for: .normal)
+        button.layer.opacity = 0
         
         return button
     }()
@@ -100,11 +113,60 @@ class MainSearchViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Table View
+    
     let meaningTableView:UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.backgroundColor = UIColor(named: "BackgroundColor")
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+                
+        let cellNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "SearchTableViewCell")
+        
         return tableView
+    }()
+    
+    // MARK: - empty Label
+    
+    let emptyLabel:UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.text = "Not Found"
+        label.numberOfLines = 0
+        
+        label.textAlignment = .center
+        
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 35, weight: .semibold)
+        
+        return label
+    }()
+    
+    let addToDictionaryButton:UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .orange
+        configuration.cornerStyle = .large
+        button.configuration = configuration
+        button.tintColor = .white
+        
+        button.setTitle("Add to Dictionary", for: .normal)
+        
+        button.layer.opacity = 0
+        
+        button.layer.shadowColor = UIColor.orange.cgColor
+        
+        button.layer.shadowOpacity = 1
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 5
+                
+        return button
     }()
         
     
@@ -115,6 +177,11 @@ class MainSearchViewController: UIViewController {
         self.configureSearch()
         
         self.configureWordResult()
+        
+        self.configureEmptyLabel()
+        
+        self.configureAddToDictionaryButton()
+        
         
     }
     
@@ -128,6 +195,9 @@ class MainSearchViewController: UIViewController {
         self.view.addSubview(self.speakButton)
         self.view.addSubview(self.partOfSpeechLabel)
         self.view.addSubview(self.meaningTableView)
+        self.view.addSubview(self.emptyLabel)
+        
+        self.view.addSubview(self.addToDictionaryButton)
     }
     // MARK: - Configure Search View
     
@@ -193,22 +263,48 @@ class MainSearchViewController: UIViewController {
         self.meaningTableView.dataSource = self
         NSLayoutConstraint.activate([
             self.meaningTableView.topAnchor.constraint(equalTo: self.partOfSpeechLabel.bottomAnchor, constant: 10),
-            self.meaningTableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            self.meaningTableView.bottomAnchor.constraint(equalTo: self.addToDictionaryButton.topAnchor, constant: -30),
             self.meaningTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             self.meaningTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])
         
+        
+        self.addToDictionaryButton.addAction(UIAction(handler: { _ in
+            CoreWordService.createCoreWord(word: self.currentWord)
+        }), for: .touchUpInside)
+        
+    }
+    
+    private func configureEmptyLabel(){
+        NSLayoutConstraint.activate([
+            self.emptyLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.emptyLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.emptyLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 15)
+        ])
+    }
+    
+    
+    private func configureAddToDictionaryButton(){
+        NSLayoutConstraint.activate([
+            self.addToDictionaryButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -15),
+            self.addToDictionaryButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.addToDictionaryButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 3 * 2),
+            self.addToDictionaryButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     private func setAttributtedWord(_ label:UILabel,word:String,_ second:String, _ secondColor:UIColor){
         let word = NSMutableAttributedString(string: "\(word)    ", attributes: [.foregroundColor : UIColor.black,])
+        
         let secondWord = NSAttributedString(string: "[\(second)]", attributes: [.foregroundColor : secondColor, .font: UIFont.systemFont(ofSize: 20, weight: .regular)])
+        
         if !second.isEmpty{
             word.append(secondWord)
         }
         
         label.attributedText = word
     }
+    
 }
 
 // MARK: - TextField Delegate
@@ -226,21 +322,36 @@ extension MainSearchViewController:UITextFieldDelegate{
 }
 
 
+// MARK: - Table view Delegate
 extension MainSearchViewController:UITableViewDelegate,UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.currentWord?.meaning.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        var conf = cell.defaultContentConfiguration()
-        conf.text = self.currentWord?.meaning[indexPath.row].word ?? ""
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
         
-        cell.contentConfiguration = conf
+        cell.wordLabel.text = self.currentWord?.meaning[indexPath.row].word ?? ""
+        
+        
+        cell.speakButton.addAction(UIAction(handler: { _ in
+            if let wordSpeak = self.currentWord?.meaning[indexPath.row]{
+                let utterance = AVSpeechUtterance(string: wordSpeak.word)
+                utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language)
+                utterance.rate = 0.1
+
+                let synthesizer = AVSpeechSynthesizer()
+                synthesizer.speak(utterance)
+            }
+        }), for: .touchUpInside)
+        
+        
         
         return cell
         
     }
+    
 }
 
 
