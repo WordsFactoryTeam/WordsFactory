@@ -8,15 +8,16 @@
 import UIKit
 
 protocol MainTrainingView: AnyObject {
-    
+    func onItemsRetrieval(items: [Word])
 }
 
 final class MainTrainingViewController: UIViewController {
+    private var words = [Word]()
     var presenter: MainTrainingViewPresenter!
     
     private lazy var dictionaryLabel: UILabel = {
         let label = UILabel()
-        let numberOfWords = 25
+        let numberOfWords = words.count
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "There are \(numberOfWords) words\n in your Dictionary."
         label.partTextColorChange(fullText: label.text!, changeText: "\(numberOfWords)")
@@ -91,6 +92,10 @@ final class MainTrainingViewController: UIViewController {
 
 // MARK: - Protocol implementation
 extension MainTrainingViewController: MainTrainingView {
+    func onItemsRetrieval(items: [Word]) {
+        words = items
+    }
+    
     @objc func didStartTraining() {
         let quizView = QuizViewController()
         present(quizView, animated: true)

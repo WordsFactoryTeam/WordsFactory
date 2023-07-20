@@ -15,12 +15,14 @@ protocol MainTrainingViewPresenter {
 
 class MainTrainingPresenter: MainTrainingViewPresenter {
     weak var view: MainTrainingView?
-//    private var items = [UIWord]()
-    
-    
+    private var items: [Word] = []
     
     // MARK: - Private methods
-    
+    func retriveItems() {
+        let coreWords = CoreWordService.fetchCoreWords()
+        items = Converter.translateWordsCoresToUIs(coreWords: coreWords) ?? []
+        view?.onItemsRetrieval(items: items)
+    }
     
     
     
@@ -30,6 +32,7 @@ class MainTrainingPresenter: MainTrainingViewPresenter {
     }
     
     func viewDidLoad() {
+        retriveItems()
     }
     
 }
