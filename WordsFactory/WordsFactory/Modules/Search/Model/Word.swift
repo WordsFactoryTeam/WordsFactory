@@ -7,7 +7,11 @@
 
 import Foundation
 
+<<<<<<< HEAD
 class Word{
+=======
+class Word {
+>>>>>>> main
     
     let word: String
     let language: String?

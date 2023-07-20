@@ -10,24 +10,21 @@ import Foundation
 protocol MainDictionaryViewPresenter {
     init(view: MainDictionaryView)
     func viewDidLoad()
-    func deleteWord(for index: Int)
+    func deleteWord(at index: Int, for word: Word)
+    func searchForWord(literalWord: String)
 }
 
 class MainDictionaryPresenter: MainDictionaryViewPresenter {
     weak var view: MainDictionaryView?
-//    private var items = [UIWord]()
-    private var items = [
-        UIWord(wordOriginal: "Dog", wordTranslations: ["Собака"]),
-        UIWord(wordOriginal: "Cat", wordTranslations: ["Кошка", "Кот", "Котенок"])
-    ]
     
+    private var items: [Word] = []
     
     // MARK: - Private methods
     func retriveItems() {
-//        items =
+        let coreWords = CoreWordService.fetchCoreWords()
+        items = Converter.translateWordsCoresToUIs(coreWords: coreWords) ?? []
         view?.onItemsRetrieval(items: items)
     }
-    
     
     
     // MARK: - Protocol methods
@@ -39,9 +36,16 @@ class MainDictionaryPresenter: MainDictionaryViewPresenter {
         retriveItems()
     }
     
-    func deleteWord(for index: Int) {
-        print(index)
-        items.remove(at: index)
+    func deleteWord(at index: Int, for word: Word) {
+        CoreWordService.deleteWord(word: word)
         view?.onItemDelete(index: index)
+    }
+    
+    func searchForWord(literalWord: String) {
+        let coreWords = literalWord.isEmpty ?
+            CoreWordService.fetchCoreWords():
+            CoreWordService.filterWords(literalWord: literalWord)
+        items = Converter.translateWordsCoresToUIs(coreWords: coreWords) ?? []
+        view?.onItemSearch(items: items)
     }
 }

@@ -76,6 +76,7 @@ final class CustomTabBarController: UITabBarController {
     func createDictionaryNavigationController() -> UIViewController {
         let view = MainDictionaryViewController()
         let presenter = MainDictionaryPresenter(view: view)
+        
         view.presenter = presenter
         
         let vc = configureViewController(
@@ -90,13 +91,20 @@ final class CustomTabBarController: UITabBarController {
     }
     
     func createTrainingNavigationController() -> UIViewController {
+        let view = MainTrainingViewController()
+        let presenter = MainTrainingPresenter(view: view)
+        
+        view.presenter = presenter
+        
         let vc = configureViewController(
-            UIViewController(),
+            view,
             title: "Training",
-            image: Constants.training ?? .add
+            image: Constants.dictionary ?? .add
         )
-        vc.view.backgroundColor = .white
-        return vc
+        
+        let trainingNavigationController = UINavigationController(rootViewController: vc)
+//        dictionaryNavigationController.setNavigationBarHidden(true, animated: false)
+        return trainingNavigationController
     }
     
     func createSettingsNavigationController() -> UIViewController {

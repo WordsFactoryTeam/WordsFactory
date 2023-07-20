@@ -14,8 +14,25 @@ class MainSearchViewController: UIViewController {
     
     let apiManagerDictionary = ApiManagerDictionary()
     
+<<<<<<< HEAD
     var currentWord:Word?
     
+=======
+    var currentWord: Word? {
+        didSet {
+            CoreWordService.createCoreWord(word: currentWord)
+        }
+    }
+    
+    func setInfo(word: Word?) {
+        searchTextField.text = word?.word
+        self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", word?.transcription ?? "", .systemPink)
+        self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", word?.PartOfSpeech ?? "", .black)
+        
+        self.currentWord = word
+        self.meaningTableView.reloadData()
+    }
+>>>>>>> main
     
     // MARK: - SEARCH OBJECTS
     
@@ -203,6 +220,7 @@ class MainSearchViewController: UIViewController {
 extension MainSearchViewController:UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+<<<<<<< HEAD
         apiManagerDictionary.getWord(word: textField.text ?? "") { word in
             word?.printWord()
             
@@ -212,6 +230,12 @@ extension MainSearchViewController:UITextFieldDelegate{
             self.currentWord = word
             self.meaningTableView.reloadData()
             
+=======
+        apiManagerDictionary.getWord(word: textField.text ?? "") { [weak self] word in
+            word?.printWord()
+
+            self?.setInfo(word: word)
+>>>>>>> main
         }
         textField.resignFirstResponder()
         return true

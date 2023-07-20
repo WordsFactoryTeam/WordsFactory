@@ -3,7 +3,7 @@ import ProjectDescription
 let infoPlist: [String: InfoPlist.Value] = [
     "CFBundleShortVersionString": "1.0",
     "CFBundleVersion": "1",
-//    "UIMainStoryboardFile": "",
+    //    "UIMainStoryboardFile": "",
     "UILaunchStoryboardName": "LaunchScreen",
     "UIApplicationSceneManifest": .dictionary([
         "UIApplicationSupportsMultipleScenes": .boolean(false),
@@ -17,7 +17,23 @@ let infoPlist: [String: InfoPlist.Value] = [
                 )
                 ]
             )])
-    ])
+    ]),
+    "UIAppFonts": .array(["Rubik-Black.ttf",
+                          "Rubik-BlackItalic.ttf",
+                          "Rubik-Bold.ttf",
+                          "Rubik-BoldItalic.ttf",
+                          "Rubik-ExtraBold.ttf",
+                          "Rubik-ExtraBoldItalic.ttf",
+                          "Rubik-Italic.ttf",
+                          "Rubik-Light.ttf",
+                          "Rubik-LightItalic.ttf",
+                          "Rubik-Medium.ttf",
+                          "Rubik-MediumItalic.ttf",
+                          "Rubik-Regular.ttf",
+                          "Rubik-SemiBold.ttf",
+                          "Rubik-SemiBoldItalic.ttf"
+                         ]),
+    "UISupportedInterfaceOrientations": .array(["UIInterfaceOrientationPortrait"])
 ]
 
 let target = Target(name: "WordsFactory",
@@ -28,10 +44,33 @@ let target = Target(name: "WordsFactory",
                     infoPlist: .extendingDefault(with: infoPlist),
                     sources: ["WordsFactory/**/*.swift"],
                     resources: ["WordsFactory/LaunchScreen.storyboard",
+<<<<<<< HEAD
                                 "WordsFactory/Assets.xcassets/"],
                     dependencies: [
                         .external(name: "Alamofire"),
                     ]
+=======
+                                "WordsFactory/Assets.xcassets/",
+                                "WordsFactory/Fonts/Rubik-Black.ttf",
+                                "WordsFactory/Fonts/Rubik-BlackItalic.ttf",
+                                "WordsFactory/Fonts/Rubik-Bold.ttf",
+                                "WordsFactory/Fonts/Rubik-BoldItalic.ttf",
+                                "WordsFactory/Fonts/Rubik-ExtraBold.ttf",
+                                "WordsFactory/Fonts/Rubik-ExtraBoldItalic.ttf",
+                                "WordsFactory/Fonts/Rubik-Italic.ttf",
+                                "WordsFactory/Fonts/Rubik-Light.ttf",
+                                "WordsFactory/Fonts/Rubik-LightItalic.ttf",
+                                "WordsFactory/Fonts/Rubik-Medium.ttf",
+                                "WordsFactory/Fonts/Rubik-MediumItalic.ttf",
+                                "WordsFactory/Fonts/Rubik-Regular.ttf",
+                                "WordsFactory/Fonts/Rubik-SemiBold.ttf",
+                                "WordsFactory/Fonts/Rubik-SemiBoldItalic.ttf",
+                               ],
+                    dependencies: [
+                        .external(name: "Alamofire"),
+                    ],
+                    coreDataModels: [.init("WordsFactory/Model.xcdatamodeld")]
+>>>>>>> main
 )
 
 
