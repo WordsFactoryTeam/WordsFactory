@@ -14,20 +14,8 @@ class MainSearchViewController: UIViewController {
     
     let apiManagerDictionary = ApiManagerDictionary()
     
-    var currentWord: Word? {
-        didSet {
-            CoreWordService.createCoreWord(word: currentWord)
-        }
-    }
+    var currentWord:Word?
     
-    func setInfo(word: Word?) {
-        searchTextField.text = word?.word
-        self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", word?.transcription ?? "", .systemPink)
-        self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", word?.PartOfSpeech ?? "", .black)
-        
-        self.currentWord = word
-        self.meaningTableView.reloadData()
-    }
     
     // MARK: - SEARCH OBJECTS
     
@@ -100,19 +88,9 @@ class MainSearchViewController: UIViewController {
         return label
     }()
     
-    // MARK: - Table View
-    
     let meaningTableView:UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.backgroundColor = UIColor(named: "BackgroundColor")
-        tableView.allowsSelection = false
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        
-        let cellNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: "SearchTableViewCell")
         
         return tableView
     }()
@@ -225,10 +203,15 @@ class MainSearchViewController: UIViewController {
 extension MainSearchViewController:UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        apiManagerDictionary.getWord(word: textField.text ?? "") { [weak self] word in
+        apiManagerDictionary.getWord(word: textField.text ?? "") { word in
             word?.printWord()
-
-            self?.setInfo(word: word)
+            
+            self.setAttributtedWord(self.wordLabel, word: word?.word ?? "", word?.transcription ?? "", .systemPink)
+            self.setAttributtedWord(self.partOfSpeechLabel, word: "Part Of Speech", word?.PartOfSpeech ?? "", .black)
+            
+            self.currentWord = word
+            self.meaningTableView.reloadData()
+            
         }
         textField.resignFirstResponder()
         return true
@@ -236,36 +219,21 @@ extension MainSearchViewController:UITextFieldDelegate{
 }
 
 
-// MARK: - Table view Delegate
 extension MainSearchViewController:UITableViewDelegate,UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.currentWord?.meaning.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
+        let cell = UITableViewCell()
+        var conf = cell.defaultContentConfiguration()
+        conf.text = self.currentWord?.meaning[indexPath.row].word ?? ""
         
-        cell.wordLabel.text = self.currentWord?.meaning[indexPath.row].word ?? ""
-        
-        
-        cell.speakButton.addAction(UIAction(handler: { _ in
-            if let wordSpeak = self.currentWord?.meaning[indexPath.row]{
-                let utterance = AVSpeechUtterance(string: wordSpeak.word)
-                utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language)
-                utterance.rate = 0.1
-
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
-            }
-        }), for: .touchUpInside)
-        
-        
+        cell.contentConfiguration = conf
         
         return cell
         
     }
-    
 }
 
 
