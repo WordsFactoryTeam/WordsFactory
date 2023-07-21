@@ -19,6 +19,7 @@ final class MainTrainingViewController: UIViewController {
     private lazy var dictionaryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+      
         label.font = .boldSystemFont(ofSize: 28)
         label.textAlignment = .center
         label.numberOfLines = 2

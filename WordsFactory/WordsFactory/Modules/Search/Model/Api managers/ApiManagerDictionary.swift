@@ -9,21 +9,7 @@ import Foundation
 import Alamofire
 
 class ApiManagerDictionary {
-    
-    enum possibleTranslateLanguages:String {
-        case ruen = "ru-en"
-        case enru = "en-ru"
-        
-        public func getSpeakLanguage() -> String {
-            switch self {
-            case .ruen:
-                return "ru-Ru"
-            case .enru:
-                return "en-US"
-            }
-        }
-    }
-    
+
     let baseUrlString = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?"
     
     let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
@@ -31,7 +17,7 @@ class ApiManagerDictionary {
     
     public func getWord(word: String, completion: @escaping (Word?) -> Void){
         
-        let language = self.determineLanguage(word: word)
+        let language = Language.determineLanguage(word: word)
         
         let fullUrlString = "\(baseUrlString)key=\( apiKey)&lang=\(language.rawValue)&text=\(word)"
         
@@ -63,17 +49,7 @@ class ApiManagerDictionary {
         }
         
     }
-    
-    private func determineLanguage(word: String) -> possibleTranslateLanguages {
-        let englishLetters = "qwertyuiopasdfghjklzxcvbnm"
         
-        if englishLetters.contains(word.lowercased().first ?? "n"){
-            return .enru
-        } else {
-            return .ruen
-        }
-    }
-    
     private func parseJson(_ json: [String: Any], lang: possibleTranslateLanguages) -> Word? {
         
         let def = json["def"] as! NSArray
@@ -99,7 +75,9 @@ class ApiManagerDictionary {
             let elementTs = element["ts"] as? String
             let elementPos = element["pos"] as? String
             
-            let elementEntity = Word(word: elementText, language: nil, PartOfSpeech: elementPos, transcription: elementTs)
+            let langElement = Language.determineLanguage(word: elementText)
+            
+            let elementEntity = Word(word: elementText, language: langElement.getSpeakLanguage(), PartOfSpeech: elementPos, transcription: elementTs)
             
             wordEntity.meaning.append(elementEntity)
         }
