@@ -104,7 +104,7 @@ class CoreWordService {
     }
     
     static func wordIsAlreadySaved(word: Word?) -> Bool {
-        guard let word else { return false }
+        guard let word else { return true }
         
         let fetchRequest: NSFetchRequest<CoreWord> = CoreWord.fetchRequest()
         fetchRequest.predicate = .init(format: "word == %@", word.word)

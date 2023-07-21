@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFAudio
 
 protocol MainDictionaryView: AnyObject {
     func onItemsRetrieval(items: [Word])
@@ -33,6 +34,10 @@ final class MainDictionaryViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = UIColor(named: "BackgroundColor")
         table.showsVerticalScrollIndicator = false
+        
+        let cellNib = UINib(nibName: "WordTableViewCell", bundle: nil)
+        table.register(cellNib, forCellReuseIdentifier: "WordTableViewCell")
+        
         return table
     }()
     
@@ -97,14 +102,24 @@ extension MainDictionaryViewController: MainDictionaryView {
 
 
 extension MainDictionaryViewController: UITableViewDelegate {
-    func tableView(
-        _ tableView: UITableView,
-        shouldHighlightRowAt indexPath: IndexPath
-    ) -> Bool {
-        (tabBarController?.viewControllers?.last
-         as? MainSearchViewController)?.setInfo(word: words[indexPath.row])
-        tabBarController?.selectedIndex = 2
-        return false
+    
+//    func tableView(
+//        _ tableView: UITableView,
+//        shouldHighlightRowAt indexPath: IndexPath
+//    ) -> Bool {
+//        (tabBarController?.viewControllers?.last
+//         as? MainSearchViewController)?.setInfo(word: words[indexPath.row])
+//        tabBarController?.selectedIndex = 2
+//        return false
+//    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destination = MainSearchViewController()
+        destination.isFromDictionary = true
+        destination.setInfo(word: words[indexPath.row])
+        
+        
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
 }
@@ -130,12 +145,26 @@ extension MainDictionaryViewController: UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: DynamicTableCell.reuseIdentifier,
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "WordTableViewCell",
             for: indexPath
-        ) as? DynamicTableCell else { return UITableViewCell() }
+        ) as! WordTableViewCell
+                
         
-        cell.setInfo(info: words[indexPath.row])
+        cell.setDictionaryInfo(info: words[indexPath.row])
+        
+        cell.speakButton.removeTarget(nil, action: nil, for: .allEvents)
+        cell.speakButton.addAction(UIAction(handler: { _ in
+            let wordSpeak = self.words[indexPath.row]
+            let utterance = AVSpeechUtterance(string: wordSpeak.word)
+            utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language )
+            utterance.rate = 0.1
+            
+            let synthesizer = AVSpeechSynthesizer()
+            if !synthesizer.isSpeaking{
+                synthesizer.speak(utterance)
+            }
+        }), for: .touchUpInside)
         
         return cell
     }
@@ -151,6 +180,7 @@ extension MainDictionaryViewController: UITableViewDataSource {
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
+    
 }
 
 

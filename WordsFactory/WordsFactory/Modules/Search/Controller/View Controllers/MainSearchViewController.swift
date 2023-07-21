@@ -14,21 +14,13 @@ class MainSearchViewController: UIViewController {
     
     let apiManagerDictionary = ApiManagerDictionary()
     
+    var isFromDictionary = false
+    
     var currentWord: Word? {
         didSet {
-            if currentWord != nil{
-                self.emptyLabel.layer.opacity = 0
-                self.partOfSpeechLabel.layer.opacity = 1
-                self.speakButton.layer.opacity = 1
-            }else{
-                self.emptyLabel.layer.opacity = 1
-                self.partOfSpeechLabel.layer.opacity = 0
-                self.speakButton.layer.opacity = 0
+            if !isFromDictionary{
+                setObjectsProperties()
             }
-            
-            self.addToDictionaryButton.layer.opacity = CoreWordService.wordIsAlreadySaved(word: currentWord) == true ? 0 : 1
-            
-            self.meaningTableViewBottomConstraint.constant = CoreWordService.wordIsAlreadySaved(word: currentWord) == true ? -10 : -70
             
         }
     }
@@ -42,6 +34,30 @@ class MainSearchViewController: UIViewController {
         
         
         self.meaningTableView.reloadData()
+    }
+    
+    fileprivate func setObjectsProperties(){
+        if currentWord != nil{
+            self.emptyLabel.layer.opacity = 0
+            self.partOfSpeechLabel.layer.opacity = 1
+            self.speakButton.layer.opacity = 1
+            
+        }else{
+            self.emptyLabel.layer.opacity = 1
+            self.partOfSpeechLabel.layer.opacity = 0
+            self.speakButton.layer.opacity = 0
+        }
+        
+        if CoreWordService.wordIsAlreadySaved(word: currentWord){
+            self.addToDictionaryButton.layer.opacity = 0
+            self.meaningTableViewBottomConstraint.constant = -10
+        }else{
+            self.addToDictionaryButton.layer.opacity = 1
+            self.meaningTableViewBottomConstraint.constant = -70
+        }
+        
+        self.meaningTableViewBottomConstraint.constant = CoreWordService.wordIsAlreadySaved(word: currentWord) == true ? -10 : -70
+        
     }
     
     // MARK: - SEARCH OBJECTS
@@ -127,8 +143,8 @@ class MainSearchViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
                 
-        let cellNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: "SearchTableViewCell")
+        let cellNib = UINib(nibName: "WordTableViewCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "WordTableViewCell")
         
         return tableView
     }()
@@ -178,6 +194,9 @@ class MainSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
+                
         self.addSubviews()
         
         self.configureSearch()
@@ -188,6 +207,7 @@ class MainSearchViewController: UIViewController {
         
         self.configureAddToDictionaryButton()
         
+        self.setObjectsProperties()
         
     }
     
@@ -224,6 +244,10 @@ class MainSearchViewController: UIViewController {
             self.searchTextField.leadingAnchor.constraint(equalTo: self.searchView.leadingAnchor,constant: 20),
             self.searchTextField.trailingAnchor.constraint(equalTo: self.searchView.trailingAnchor,constant: -50),
         ])
+        
+        if self.isFromDictionary{
+            self.searchView.layer.opacity = 0
+        }
     }
     
     // MARK: - Configuration Word Result
@@ -231,8 +255,16 @@ class MainSearchViewController: UIViewController {
     private func configureWordResult(){
         
         // word
+        var wordLabelTop:NSLayoutConstraint
+        
+        if self.isFromDictionary{
+            wordLabelTop = NSLayoutConstraint(item: self.wordLabel, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 30)
+        }else{
+            wordLabelTop = NSLayoutConstraint(item: self.wordLabel, attribute: .top, relatedBy: .equal, toItem: self.searchView, attribute: .bottom, multiplier: 1, constant: 30)
+        }
+        
         NSLayoutConstraint.activate([
-            self.wordLabel.topAnchor.constraint(equalTo: self.searchView.bottomAnchor,constant: 30),
+            wordLabelTop,
             self.wordLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
         ])
         
@@ -344,14 +376,13 @@ extension MainSearchViewController:UITableViewDelegate,UITableViewDataSource{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WordTableViewCell", for: indexPath) as! WordTableViewCell
         
         
         cell.wordLabel.text = self.currentWord?.meaning[indexPath.row].word ?? ""
         
         cell.speakButton.removeTarget(nil, action: nil, for: .allEvents)
         cell.speakButton.addAction(UIAction(handler: { _ in
-            print(indexPath.row)
             if let wordSpeak = self.currentWord?.meaning[indexPath.row]{
                 let utterance = AVSpeechUtterance(string: wordSpeak.word)
                 utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language )
