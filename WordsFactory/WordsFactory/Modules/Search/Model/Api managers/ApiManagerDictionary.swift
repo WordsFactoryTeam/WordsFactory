@@ -75,7 +75,9 @@ class ApiManagerDictionary {
             let elementTs = element["ts"] as? String
             let elementPos = element["pos"] as? String
             
-            let elementEntity = Word(word: elementText, language: nil, PartOfSpeech: elementPos, transcription: elementTs)
+            let langElement = Language.determineLanguage(word: elementText)
+            
+            let elementEntity = Word(word: elementText, language: langElement.getSpeakLanguage(), PartOfSpeech: elementPos, transcription: elementTs)
             
             wordEntity.meaning.append(elementEntity)
         }
