@@ -1,8 +1,5 @@
 {
   "externalProjects" : [
-    "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
-    {
-      "sourceRootPath" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
       "options" : {
         "automaticSchemesOptions" : {
           "disabled" : {
@@ -54,11 +51,8 @@
           "settings" : {
             "base" : {
               "SWIFT_ACTIVE_COMPILATION_CONDITIONS" : {
-                "array" : {
-                  "_0" : [
-                    "$(inherited)",
-                    "SWIFT_PACKAGE"
-                  ]
+                "string" : {
+                  "_0" : "$(inherited) SWIFT_PACKAGE"
                 }
               },
               "ALWAYS_SEARCH_USER_PATHS" : {
@@ -69,6 +63,11 @@
               "ENABLE_STRICT_OBJC_MSGSEND" : {
                 "string" : {
                   "_0" : "NO"
+                }
+              },
+              "GCC_WARN_INHIBIT_ALL_WARNINGS" : {
+                "string" : {
+                  "_0" : "YES"
                 }
               },
               "FRAMEWORK_SEARCH_PATHS" : {
@@ -155,115 +154,6 @@
           },
           "sources" : [
             {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/StringEncoding+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/NetworkReachabilityManager.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AFError.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RetryPolicy.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLSessionConfiguration+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Validation.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RedirectHandler.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/SessionDelegate.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestTaskMap.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/HTTPHeaders.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Notifications.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestInterceptor.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/MultipartFormData.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLEncodedFormEncoder.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Result+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ParameterEncoding.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/CachedResponseHandler.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/HTTPMethod.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Request.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Concurrency.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLConvertible+URLRequestConvertible.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/URLRequest+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Combine.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Session.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/OperationQueue+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/DispatchQueue+Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/EventMonitor.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ParameterEncoder.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Protected.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Alamofire.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/MultipartUpload.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AlamofireExtended.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/Response.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ResponseSerialization.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/AuthenticationInterceptor.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/RequestCompression.swift"
-            },
-            {
-              "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Source\/ServerTrustEvaluation.swift"
             }
           ],
           "resources" : [
@@ -330,7 +220,7 @@
           }
         }
       },
-      "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire",
+
       "isExternal" : true,
       "filesGroup" : {
         "group" : {
@@ -340,7 +230,7 @@
       "packages" : [
 
       ],
-      "xcodeProjPath" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire\/Alamofire.xcodeproj",
+
       "resourceSynthesizers" : [
         {
           "template" : {
@@ -404,7 +294,6 @@
         {
           "project" : {
             "target" : "Alamofire",
-            "path" : "\/Users\/shredding\/ALL MY\/Programming\/Swift\/WordsFactory\/WordsFactory\/Tuist\/Dependencies\/SwiftPackageManager\/.build\/checkouts\/Alamofire"
           }
         }
       ]

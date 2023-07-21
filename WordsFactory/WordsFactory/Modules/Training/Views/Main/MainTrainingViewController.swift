@@ -14,13 +14,12 @@ protocol MainTrainingView: AnyObject {
 final class MainTrainingViewController: UIViewController {
     private var words = [Word]()
     var presenter: MainTrainingViewPresenter!
+    var numberOfWords = 0
     
     private lazy var dictionaryLabel: UILabel = {
         let label = UILabel()
-        let numberOfWords = words.count
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "There are \(numberOfWords) words\n in your Dictionary."
-        label.partTextColorChange(fullText: label.text!, changeText: "\(numberOfWords)")
+      
         label.font = .boldSystemFont(ofSize: 28)
         label.textAlignment = .center
         label.numberOfLines = 2
@@ -94,6 +93,9 @@ final class MainTrainingViewController: UIViewController {
 extension MainTrainingViewController: MainTrainingView {
     func onItemsRetrieval(items: [Word]) {
         words = items
+        numberOfWords = words.count
+        dictionaryLabel.text = "There are \(numberOfWords) words\n in your Dictionary."
+        dictionaryLabel.partTextColorChange(fullText: dictionaryLabel.text!, changeText: "\(numberOfWords)")
     }
     
     @objc func didStartTraining() {
