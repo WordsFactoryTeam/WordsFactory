@@ -100,6 +100,7 @@ extension MainTrainingViewController: MainTrainingView {
     
     @objc func didStartTraining() {
         let quizView = QuizViewController()
+        quizView.words = words
         present(quizView, animated: true)
     }
 }
