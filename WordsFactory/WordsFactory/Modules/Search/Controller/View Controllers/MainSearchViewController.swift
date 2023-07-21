@@ -20,13 +20,16 @@ class MainSearchViewController: UIViewController {
                 self.emptyLabel.layer.opacity = 0
                 self.partOfSpeechLabel.layer.opacity = 1
                 self.speakButton.layer.opacity = 1
-                self.addToDictionaryButton.layer.opacity = 1
             }else{
                 self.emptyLabel.layer.opacity = 1
                 self.partOfSpeechLabel.layer.opacity = 0
                 self.speakButton.layer.opacity = 0
-                self.addToDictionaryButton.layer.opacity = 0
             }
+            
+            self.addToDictionaryButton.layer.opacity = CoreWordService.wordIsAlreadySaved(word: currentWord) == true ? 0 : 1
+            
+            self.meaningTableViewBottomConstraint.constant = CoreWordService.wordIsAlreadySaved(word: currentWord) == true ? -10 : -70
+            
         }
     }
     
@@ -129,6 +132,9 @@ class MainSearchViewController: UIViewController {
         
         return tableView
     }()
+    
+    var meaningTableViewBottomConstraint:NSLayoutConstraint!
+    
     
     // MARK: - empty Label
     
@@ -261,9 +267,12 @@ class MainSearchViewController: UIViewController {
         // meaning
         self.meaningTableView.delegate = self
         self.meaningTableView.dataSource = self
+        
+        self.meaningTableViewBottomConstraint = NSLayoutConstraint(item: self.meaningTableView, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: -70)
+        
         NSLayoutConstraint.activate([
             self.meaningTableView.topAnchor.constraint(equalTo: self.partOfSpeechLabel.bottomAnchor, constant: 10),
-            self.meaningTableView.bottomAnchor.constraint(equalTo: self.addToDictionaryButton.topAnchor, constant: -30),
+            meaningTableViewBottomConstraint,
             self.meaningTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             self.meaningTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])
@@ -271,6 +280,11 @@ class MainSearchViewController: UIViewController {
         
         self.addToDictionaryButton.addAction(UIAction(handler: { _ in
             CoreWordService.createCoreWord(word: self.currentWord)
+            UIView.transition(with: self.meaningTableView, duration: 0.3, options: .transitionCrossDissolve) {
+                self.meaningTableViewBottomConstraint.constant = -10
+                self.addToDictionaryButton.layer.opacity = 0
+            }
+            
         }), for: .touchUpInside)
         
     }
@@ -332,21 +346,23 @@ extension MainSearchViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
         
+        
         cell.wordLabel.text = self.currentWord?.meaning[indexPath.row].word ?? ""
         
-        
+        cell.speakButton.removeTarget(nil, action: nil, for: .allEvents)
         cell.speakButton.addAction(UIAction(handler: { _ in
+            print(indexPath.row)
             if let wordSpeak = self.currentWord?.meaning[indexPath.row]{
                 let utterance = AVSpeechUtterance(string: wordSpeak.word)
-                utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language)
+                utterance.voice = AVSpeechSynthesisVoice(language: wordSpeak.language )
                 utterance.rate = 0.1
 
                 let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
+                if !synthesizer.isSpeaking{
+                    synthesizer.speak(utterance)
+                }
             }
         }), for: .touchUpInside)
-        
-        
         
         return cell
         
