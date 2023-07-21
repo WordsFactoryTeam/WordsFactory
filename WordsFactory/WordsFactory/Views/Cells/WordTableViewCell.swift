@@ -7,13 +7,16 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+class WordTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var viewContainer: UIView!
     
     
     @IBOutlet weak var wordLabel: UILabel!
+    
+    @IBOutlet weak var detailsLabel: UILabel!
+    
     
     
     @IBOutlet weak var speakButton: UIButton!
@@ -33,6 +36,13 @@ class SearchTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setDictionaryInfo(info: Word) {
+        self.wordLabel.text = info.word
+        self.detailsLabel.text = info.meaning.map{
+            $0.word
+        }.joined(separator: ", ")
     }
     
 }

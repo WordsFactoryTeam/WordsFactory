@@ -8,6 +8,7 @@
 import UIKit
 
 final class DynamicTable: UITableView {
+        
     override var contentSize: CGSize {
         didSet {
             invalidateIntrinsicContentSize()
