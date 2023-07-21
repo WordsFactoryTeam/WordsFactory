@@ -13,11 +13,14 @@ class QuizViewController: UIViewController {
     var currentWord = 0
     let numberOfWords = 5
     
+    var words:[Word]!
+    
     
     private lazy var dictionaryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "There are \(numberOfWords) words\n in your Dictionary."
+//        label.text = "There are \(numberOfWords) words\n in your Dictionary."
+        label.text = "test Word is \(words[Int.random(in: 0..<words.count)].word)"
         label.font = .boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -126,7 +129,7 @@ class QuizViewController: UIViewController {
         firstOptionButton.layer.cornerRadius = 12
         firstOptionButton.layer.borderWidth = 1
         firstOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        firstOptionButton.setTitle("Option 1", for: .normal)
+        firstOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         firstOptionButton.titleLabel?.textAlignment = .center
       
         firstOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
@@ -137,7 +140,7 @@ class QuizViewController: UIViewController {
         secondOptionButton.layer.cornerRadius = 12
         secondOptionButton.layer.borderWidth = 1
         secondOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        secondOptionButton.setTitle("Option 2", for: .normal)
+        secondOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         secondOptionButton.titleLabel?.textAlignment = .center
 
         secondOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
@@ -149,7 +152,7 @@ class QuizViewController: UIViewController {
         thirdOptionButton.layer.cornerRadius = 12
         thirdOptionButton.layer.borderWidth = 1
         thirdOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        thirdOptionButton.setTitle("Option 3", for: .normal)
+        thirdOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         thirdOptionButton.titleLabel?.textAlignment = .center
       
         thirdOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
