@@ -128,7 +128,8 @@ class QuizViewController: UIViewController {
         firstOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
         firstOptionButton.setTitle("Option 1", for: .normal)
         firstOptionButton.titleLabel?.textAlignment = .center
-        firstOptionButton.titleLabel?.textColor = UIColor(named: "SecondaryTextColor") ?? .black
+      
+        firstOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
         firstOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
         
         let secondOptionButton = UIButton()
@@ -138,7 +139,9 @@ class QuizViewController: UIViewController {
         secondOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
         secondOptionButton.setTitle("Option 2", for: .normal)
         secondOptionButton.titleLabel?.textAlignment = .center
-        secondOptionButton.titleLabel?.textColor = UIColor(named: "SecondaryTextColor") ?? .black
+
+        secondOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
+
         secondOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
         
         let thirdOptionButton = UIButton()
@@ -148,7 +151,9 @@ class QuizViewController: UIViewController {
         thirdOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
         thirdOptionButton.setTitle("Option 3", for: .normal)
         thirdOptionButton.titleLabel?.textAlignment = .center
-        thirdOptionButton.titleLabel?.textColor = UIColor(named: "SecondaryTextColor") ?? .black
+      
+        thirdOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
+      
         thirdOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
