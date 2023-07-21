@@ -71,6 +71,11 @@
                   "_0" : "NO"
                 }
               },
+              "GCC_WARN_INHIBIT_ALL_WARNINGS" : {
+                "string" : {
+                  "_0" : "YES"
+                }
+              },
               "FRAMEWORK_SEARCH_PATHS" : {
                 "array" : {
                   "_0" : [
