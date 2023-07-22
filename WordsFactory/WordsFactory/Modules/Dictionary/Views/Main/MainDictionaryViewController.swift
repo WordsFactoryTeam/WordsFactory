@@ -34,6 +34,7 @@ final class MainDictionaryViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = UIColor(named: "BackgroundColor")
         table.showsVerticalScrollIndicator = false
+        table.separatorColor = .clear
         
         let cellNib = UINib(nibName: "WordTableViewCell", bundle: nil)
         table.register(cellNib, forCellReuseIdentifier: "WordTableViewCell")
@@ -114,11 +115,11 @@ extension MainDictionaryViewController: UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableOfWords.deselectRow(at: indexPath, animated: false)
         let destination = MainSearchViewController()
         destination.isFromDictionary = true
         destination.setInfo(word: words[indexPath.row])
-        
-        
+            
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
@@ -152,6 +153,7 @@ extension MainDictionaryViewController: UITableViewDataSource {
                 
         
         cell.setDictionaryInfo(info: words[indexPath.row])
+        cell.selectionStyle = .none
         
         cell.speakButton.removeTarget(nil, action: nil, for: .allEvents)
         cell.speakButton.addAction(UIAction(handler: { _ in

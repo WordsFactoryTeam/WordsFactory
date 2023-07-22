@@ -21,7 +21,11 @@ class ApiManagerDictionary {
         
         let fullUrlString = "\(baseUrlString)key=\( apiKey)&lang=\(language.rawValue)&text=\(word)"
         
-        let url = URL(string: fullUrlString)
+        let fullUrlStringEncoded = fullUrlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        guard let fullUrlStringEncoded else { return }
+        
+        let url = URL(string: fullUrlStringEncoded)
         
         print(fullUrlString)
         guard let url else { return }
