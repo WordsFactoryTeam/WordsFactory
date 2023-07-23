@@ -10,17 +10,22 @@ import UIKit
 class QuizViewController: UIViewController {
     
     let timer: TimerCircle = TimerCircle()
+    var resetButtons = Timer()
     var currentWord = 0
-    let numberOfWords = 5
+    var numberOfWords = 0
+    var correctAnswers = 0
+    var incorrectAnswers = 0
+    var correctButton = -1
+    var firstOption: String = ""
+    var secondOption: String = ""
+    var thirdOption: String = ""
     
-    var words:[Word]!
+    var words: [Word]!
     
     
     private lazy var dictionaryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.text = "There are \(numberOfWords) words\n in your Dictionary."
-        label.text = "test Word is \(words[Int.random(in: 0..<words.count)].word)"
         label.font = .boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -31,7 +36,6 @@ class QuizViewController: UIViewController {
     private lazy var counterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "\(currentWord) of \(numberOfWords)"
         label.textColor = UIColor(named: "InactiveTabBarItemColor")
         label.textAlignment = .center
         
@@ -71,7 +75,6 @@ class QuizViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "BackgroundColor")
         NSLayoutConstraint.activate(timerConstraints())
-        
     }
     
     func timerConstraints() -> [NSLayoutConstraint] {
@@ -112,6 +115,36 @@ class QuizViewController: UIViewController {
         progressBar.setProgress(progress, animated: true)
     }
     
+    func setNewRandomWords() {
+        var meaning = ""
+        words[currentWord].meaning.forEach({meaning.append("\($0.word), ")})
+        meaning.removeLast(2)
+        dictionaryLabel.text = meaning
+        correctButton = Int.random(in: 0...2)
+        let shuffledWords = words.shuffled()
+        
+        switch correctButton {
+        case 0:
+            firstOption = words[currentWord].word
+            secondOption = shuffledWords[0].word
+            thirdOption = shuffledWords[1].word
+        case 1:
+            firstOption = shuffledWords[0].word
+            secondOption = words[currentWord].word
+            thirdOption = shuffledWords[1].word
+        case 2:
+            firstOption = shuffledWords[0].word
+            secondOption = shuffledWords[1].word
+            thirdOption = words[currentWord].word
+        default:
+            print("Error in swith occure!")
+        }
+        
+        (buttonsStackView.arrangedSubviews[0] as? UIButton)?.setTitle(firstOption, for: .normal)
+        (buttonsStackView.arrangedSubviews[1] as? UIButton)?.setTitle(secondOption, for: .normal)
+        (buttonsStackView.arrangedSubviews[2] as? UIButton)?.setTitle(thirdOption, for: .normal)
+    }
+    
     func setUpViews() {
         NSLayoutConstraint.deactivate(timerConstraints())
         
@@ -120,6 +153,9 @@ class QuizViewController: UIViewController {
         view.addSubview(counterLabel)
         view.addSubview(buttonsStackView)
         view.addSubview(progressBar)
+        numberOfWords = words.count
+        setNewRandomWords()
+        counterLabel.text = "\(currentWord) of \(numberOfWords)"
         NSLayoutConstraint.activate(staticConstraints())
     }
     
@@ -129,35 +165,33 @@ class QuizViewController: UIViewController {
         firstOptionButton.layer.cornerRadius = 12
         firstOptionButton.layer.borderWidth = 1
         firstOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        firstOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         firstOptionButton.titleLabel?.textAlignment = .center
-      
         firstOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
+        
         firstOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
+        firstOptionButton.tag = 0
         
         let secondOptionButton = UIButton()
         secondOptionButton.translatesAutoresizingMaskIntoConstraints = false
         secondOptionButton.layer.cornerRadius = 12
         secondOptionButton.layer.borderWidth = 1
         secondOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        secondOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         secondOptionButton.titleLabel?.textAlignment = .center
-
         secondOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
-
+        
         secondOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
+        secondOptionButton.tag = 1
         
         let thirdOptionButton = UIButton()
         thirdOptionButton.translatesAutoresizingMaskIntoConstraints = false
         thirdOptionButton.layer.cornerRadius = 12
         thirdOptionButton.layer.borderWidth = 1
         thirdOptionButton.layer.borderColor = UIColor(named: "SecondaryTextColor")?.cgColor ?? UIColor.black.cgColor
-        thirdOptionButton.setTitle("Test Option is \(words[Int.random(in: 0..<words.count)].word)", for: .normal)
         thirdOptionButton.titleLabel?.textAlignment = .center
-      
         thirdOptionButton.setTitleColor(UIColor(named: "SecondaryTextColor") ?? .black, for: .normal)
       
         thirdOptionButton.addTarget(self, action: #selector(showNextWord), for: .touchUpInside)
+        thirdOptionButton.tag = 2
         
         NSLayoutConstraint.activate([
             firstOptionButton.heightAnchor.constraint(equalToConstant: 50),
@@ -170,25 +204,45 @@ class QuizViewController: UIViewController {
         buttonsStackView.addArrangedSubview(thirdOptionButton)
     }
     
-    @objc func showNextWord() {
+    @objc func resetBackground() {
+        buttonsStackView.arrangedSubviews.forEach({($0 as? UIButton)?.backgroundColor = .white})
+    }
+    
+    @objc func showNextWord(sender: UIButton) {
+        if (correctButton == sender.tag) {
+            sender.backgroundColor = .green
+            correctAnswers += 1
+        } else {
+            sender.backgroundColor = .red
+            incorrectAnswers += 1
+        }
+        resetButtons = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(resetBackground), userInfo: nil, repeats: false)
+        
         if (currentWord+1 == numberOfWords) {
-            view.subviews.forEach { subView in
-                subView.removeFromSuperview()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.view.subviews.forEach { subView in
+                    subView.removeFromSuperview()
+                }
+                
+                let resultView = ResultView()
+                resultView.setAnswers(correctAnswers: self.correctAnswers, incorrectAnswers: self.incorrectAnswers)
+                resultView.translatesAutoresizingMaskIntoConstraints = false
+                self.view.addSubview(resultView)
+                NSLayoutConstraint.deactivate(self.staticConstraints())
+                
+                NSLayoutConstraint.activate([
+                    resultView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                    resultView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                    resultView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1)
+                ])
             }
-            let resultView = ResultView()
-            resultView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(resultView)
-            NSLayoutConstraint.deactivate(staticConstraints())
             
-            NSLayoutConstraint.activate([
-                resultView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                resultView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                resultView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1)
-            ])
         }
         currentWord += 1
         counterLabel.text = "\(currentWord) of \(numberOfWords)"
         updateProgress(currentValue: Float(currentWord), maxValue: Float(numberOfWords))
+        guard currentWord < numberOfWords else { return }
+        setNewRandomWords()
     }
 
 }

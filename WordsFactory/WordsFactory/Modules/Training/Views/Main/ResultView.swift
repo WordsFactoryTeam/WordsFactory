@@ -9,9 +9,6 @@ import UIKit
 
 class ResultView: UIView {
     
-    let correctAnswers = 15
-    let incorrectAnswers = 10
-    
     private lazy var trainingImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +31,6 @@ class ResultView: UIView {
     private lazy var correctAnswersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Correct: \(correctAnswers)"
         label.textColor = UIColor(named: "SecondaryTextColor") ?? .black
         label.textAlignment = .center
         
@@ -44,7 +40,6 @@ class ResultView: UIView {
     private lazy var incorrectAnswersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Incorrect: \(incorrectAnswers)"
         label.textColor = UIColor(named: "SecondaryTextColor") ?? .black
         label.textAlignment = .center
         
@@ -59,9 +54,11 @@ class ResultView: UIView {
         button.titleLabel?.textAlignment = .center
         button.backgroundColor = UIColor(named: "PrimaryColor") ?? .black
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         return button
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,10 +68,14 @@ class ResultView: UIView {
         addSubview(correctAnswersLabel)
         addSubview(incorrectAnswersLabel)
         addSubview(goBackButton)
-        goBackButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         NSLayoutConstraint.activate(staticConstraints())
         
+    }
+    
+    func setAnswers(correctAnswers: Int, incorrectAnswers: Int) {
+        correctAnswersLabel.text = "Correct: \(correctAnswers)"
+        incorrectAnswersLabel.text = "Incorrect: \(incorrectAnswers)"
     }
     
     required init?(coder: NSCoder) {
