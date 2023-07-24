@@ -30,8 +30,8 @@ final class MainTrainingViewController: UIViewController {
     private lazy var callToActionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Start the Training?"
         label.font = .boldSystemFont(ofSize: 28)
+        label.numberOfLines = 2
         label.textAlignment = .center
         
         return label
@@ -69,6 +69,10 @@ final class MainTrainingViewController: UIViewController {
         presenter.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewDidLoad()
+    }
+    
     func staticConstraints() -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
         
@@ -96,6 +100,14 @@ extension MainTrainingViewController: MainTrainingView {
         numberOfWords = words.count
         dictionaryLabel.text = "There are \(numberOfWords) words\n in your Dictionary."
         dictionaryLabel.partTextColorChange(fullText: dictionaryLabel.text!, changeText: "\(numberOfWords)")
+        if (numberOfWords < 6) {
+            callToActionLabel.text = "You need at least\n 6 words to start."
+            callToActionLabel.partTextColorChange(fullText: callToActionLabel.text!, changeText: "6")
+            startTrainingButton.isHidden = true
+        } else {
+            callToActionLabel.text = "Start the Training?"
+            startTrainingButton.isHidden = false
+        }
     }
     
     @objc func didStartTraining() {

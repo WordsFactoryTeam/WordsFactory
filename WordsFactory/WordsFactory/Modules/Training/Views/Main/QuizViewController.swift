@@ -121,23 +121,26 @@ class QuizViewController: UIViewController {
         meaning.removeLast(2)
         dictionaryLabel.text = meaning
         correctButton = Int.random(in: 0...2)
-        let shuffledWords = words.shuffled()
-        
-        switch correctButton {
-        case 0:
-            firstOption = words[currentWord].word
-            secondOption = shuffledWords[0].word
-            thirdOption = shuffledWords[1].word
-        case 1:
-            firstOption = shuffledWords[0].word
-            secondOption = words[currentWord].word
-            thirdOption = shuffledWords[1].word
-        case 2:
-            firstOption = shuffledWords[0].word
-            secondOption = shuffledWords[1].word
-            thirdOption = words[currentWord].word
-        default:
-            print("Error in swith occure!")
+        if var array = words {
+            array.remove(at: currentWord)
+            let shuffledWords = array.shuffled()
+            
+            switch correctButton {
+            case 0:
+                firstOption = words[currentWord].word
+                secondOption = shuffledWords[0].word
+                thirdOption = shuffledWords[1].word
+            case 1:
+                firstOption = shuffledWords[0].word
+                secondOption = words[currentWord].word
+                thirdOption = shuffledWords[1].word
+            case 2:
+                firstOption = shuffledWords[0].word
+                secondOption = shuffledWords[1].word
+                thirdOption = words[currentWord].word
+            default:
+                print("Error in swith occure!")
+            }
         }
         
         (buttonsStackView.arrangedSubviews[0] as? UIButton)?.setTitle(firstOption, for: .normal)
@@ -210,10 +213,10 @@ class QuizViewController: UIViewController {
     
     @objc func showNextWord(sender: UIButton) {
         if (correctButton == sender.tag) {
-            sender.backgroundColor = .green
+            sender.backgroundColor = UIColor(named: "RightAnswerColor")
             correctAnswers += 1
         } else {
-            sender.backgroundColor = .red
+            sender.backgroundColor = UIColor(named: "WrongAnswerColor")
             incorrectAnswers += 1
         }
         resetButtons = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(resetBackground), userInfo: nil, repeats: false)
