@@ -234,9 +234,10 @@ class QuizViewController: UIViewController {
                 NSLayoutConstraint.deactivate(self.staticConstraints())
                 
                 NSLayoutConstraint.activate([
-                    resultView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                     resultView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-                    resultView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1)
+                    resultView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                    resultView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+                    resultView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
                 ])
             }
             

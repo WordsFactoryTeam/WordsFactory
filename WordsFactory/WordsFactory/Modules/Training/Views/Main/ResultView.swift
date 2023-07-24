@@ -54,8 +54,7 @@ class ResultView: UIView {
         button.titleLabel?.textAlignment = .center
         button.backgroundColor = UIColor(named: "PrimaryColor") ?? .black
         button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
-        
+                
         return button
     }()
     
@@ -71,6 +70,7 @@ class ResultView: UIView {
         
         NSLayoutConstraint.activate(staticConstraints())
         
+        self.goBackButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
     }
     
     func setAnswers(correctAnswers: Int, incorrectAnswers: Int) {
@@ -105,7 +105,7 @@ class ResultView: UIView {
     }
     
     @objc func goBack() {
-        print("dsfsf")
         window?.rootViewController?.dismiss(animated: true)
     }
+    
 }
