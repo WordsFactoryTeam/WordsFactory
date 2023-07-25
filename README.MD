@@ -11,10 +11,3 @@ cd WordsFactory
 tuist fetch
 tuist generate
 ```
-## Screenshots 📷
-
-<div style="display:flex;">
-  <img src="" width="200">
-  <img src="" width="200">
-  <img src="" width="200">
-</div>
