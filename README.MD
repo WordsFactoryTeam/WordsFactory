@@ -6,6 +6,15 @@ This is app for learning new English words.
 ## Set up ⬇️
 To generate the .xcodeproj and .xcworkspace you need to
 ```bash
+curl -Ls https://install.tuist.io | bash
 cd WordsFactory
+tuist fetch
 tuist generate
 ```
+## Screenshots 📷
+
+<div style="display:flex;">
+  <img src="" width="200">
+  <img src="" width="200">
+  <img src="" width="200">
+</div>
